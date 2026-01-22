@@ -134,7 +134,7 @@ const localeMap = new Map([
 
 const detectLocale = (value) => {
   const locale = value || app.getLocale()
-  let result = 'zh-cn'
+  let result = 'en-us'
   for (let [key, list] of localeMap) {
     if (locale === key || list.includes(locale)) {
       result = key
