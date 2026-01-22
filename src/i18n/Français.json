@@ -19,7 +19,7 @@
   "ui.hint.lastUpdate": "Dernière mise à jour",
   "ui.hint.failed": "Oups, une erreur est survenue...",
   "ui.hint.relaunchHint": "La mise à jour est terminée, elle prendra effet après avoir cliqué sur le bouton permettant le redémarrage de l'outil",
-  "ui.win.title": "Outil d'export de l'historique de sauts hyperespaces de Star Rail",
+  "ui.win.title": "",
   "ui.data.total": "Total de",
   "ui.data.times": "tirages.",
   "ui.data.sum": "Vous avez effectué",
@@ -94,10 +94,13 @@
   "excel.header.remark": "Commentaire",
   "excel.wish2": "Sauts hyperespaces 2",
   "excel.customFont": "Arial",
-  "excel.filePrefix": "StarRail_historique_sauts",
+  "excel.filePrefix": "",
   "excel.fileType": "Classeur Excel",
   "srgf.fileType": "Fichier Star Rail Gacha Log Format",
   "ui.extra.cacheClean": "1. Vérifiez si l'historique de sauts hyperespaces du jeu a été ouvert et si l'erreur \"Authentification utilisateur expirée\" apparaît toujours, essayez les étapes suivantes \n2. Fermez la fenêtre de jeu de Star Rail \n3. Cliquez sur le bouton \"Ouvrir le dossier de cache Web\" ci-dessus pour ouvrir le dossier \"Cache\" \n4. Supprimez le dossier \"Cache_Data\" \n5. Démarrez le jeu Star Rail et ouvrez la page d'historique de sauts hyperespaces dans le jeu \n6. Fermez cette boîte de dialogue et cliquez sur le bouton \"Mettre à jour les données\"",
   "ui.extra.findCacheFolder": "Si le bouton \"Ouvrir le dossier de cache\" ne répond pas, vous pouvez rechercher manuellement le dossier de cache web du jeu. Le répertoire est \"Chemin d'installation de votre jeu/Star Rail/Games/StarRail_Data/webCaches/Cache/\"",
-  "ui.extra.urlCopied": "URL copiée"
+  "ui.extra.urlCopied": "URL copiée",
+  "gacha.type.1": "Recrutement de base",
+  "gacha.type.11": "Recrutement certifié",
+  "gacha.type.2": "Recrutement Nouveaux horizons"
 }

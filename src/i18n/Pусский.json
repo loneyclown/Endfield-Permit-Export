@@ -68,5 +68,8 @@
   "excel.header.pity": "Молитв после выпадения 5*",
   "excel.customFont": "Times New Roman",
   "excel.filePrefix": "",
-  "excel.fileType": "Excel file"
+  "excel.fileType": "Excel file",
+  "gacha.type.1": "Специальный наем",
+  "gacha.type.11": "Стандартный наем",
+  "gacha.type.2": "Наем «Новые горизонты»"
 }

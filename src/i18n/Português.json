@@ -65,5 +65,8 @@
   "excel.header.pity": "DENTRO DO PITY",
   "excel.customFont": "Arial",
   "excel.filePrefix": "",
-  "excel.fileType": "Excel file"
+  "excel.fileType": "Excel file",
+  "gacha.type.1": "Basic Headhunting",
+  "gacha.type.11": "Chartered Headhunting",
+  "gacha.type.2": "New Horizon Headhunting"
 }

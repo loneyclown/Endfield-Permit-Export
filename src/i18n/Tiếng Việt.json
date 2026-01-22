@@ -73,5 +73,8 @@
     "excel.header.pity": "Bảo hiểm",
     "excel.customFont": "Arial",
     "excel.filePrefix": "",
-    "excel.fileType": "Tập tin Excel"
+    "excel.fileType": "Tập tin Excel",
+    "gacha.type.1": "Chiêu Mộ Cơ Bản",
+    "gacha.type.11": "Chiêu Mộ Đặc Biệt",
+    "gacha.type.2": "Chiêu Mộ Chân Trời Mới"
 }

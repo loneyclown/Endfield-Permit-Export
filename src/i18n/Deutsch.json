@@ -77,5 +77,8 @@
    "excel.customFont": "Arial",
    "excel.filePrefix": "",
    "excel.fileType": "Excel Datei",
-   "srgf.fileType": "Star Rail Gacha Log Format Datei"
+   "srgf.fileType": "Star Rail Gacha Log Format Datei",
+   "gacha.type.1": "Rekrutierung: Standard",
+   "gacha.type.11": "Rekrutierung: Priorisiert",
+   "gacha.type.2": "Rekrutierung: Neue Horizonte"
 }

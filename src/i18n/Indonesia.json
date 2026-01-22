@@ -72,6 +72,8 @@
     "excel.header.pity": "dengan pity",
     "excel.customFont": "Arial",
     "excel.filePrefix": "",
-    "excel.fileType": "Excel file"
+    "excel.fileType": "Excel file",
+    "gacha.type.1": "Headhunt Dasar",
+    "gacha.type.11": "Headhunt Sewaan",
+    "gacha.type.2": "Headhunt Cakrawala Baru"
 }
-
