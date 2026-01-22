@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const { app, ipcMain, shell } = require('electron')
-const { sendMsg, readJSON, saveJSON, detectLocale, userDataPath, localIp, langMap } = require('./utils')
+const { sendMsg, readJSON, saveJSON, detectLocale, userDataPath, localIp, langMap, sleep } = require('./utils')
 const config = require('./config')
 const i18n = require('./i18n')
 const { mergeData } = require('./utils/mergeData')
@@ -118,20 +118,78 @@ const getAllRecord = async ({ token, lang, serverId }) => {
 
     const result = new Map()
 
+    sendMsg(i18n.parse(i18n.log.fetch.gachaType))
+    await sleep(1) // Simulate wait or just nice UX
+    sendMsg(i18n.parse(i18n.log.fetch.gachaTypeOk))
+
     for (const poolType of POOL_TYPES) {
         let hasMore = true
         let lastSeqId = undefined
         const currentPoolRecords = []
         const mappedKey = poolIdMap[poolType]
+        const name = typeMap.get(mappedKey)
+        let page = 1
 
-        sendMsg(`Fetching ${poolType}...`)
+        // sendMsg(`Fetching ${poolType}...`) // Removed in favor of i18n logs inside loop
 
         while (hasMore) {
-            // Add slight delay to be safe
-            await new Promise(r => setTimeout(r, 500))
+            if (page % 10 === 0 && page > 0) {
+                sendMsg(i18n.parse(i18n.log.fetch.interval, { name, page }))
+                await sleep(1)
+            } else {
+                sendMsg(i18n.parse(i18n.log.fetch.current, { name, page }))
+            }
 
-            const res = await fetchCharRecord({ token, lang, serverId, poolType, seqId: lastSeqId })
+            // Retry logic
+            let retryCount = 0
+            let success = false
+            let res = null
+
+            while (retryCount < 5) {
+                try {
+                    res = await fetchCharRecord({ token, lang, serverId, poolType, seqId: lastSeqId })
+
+                    // Simple check for auth/error based on response structure
+                    // Assuming standard structure: { code: 0, data: { ... } }
+                    // Use loose check for code as I don't see it defined.
+                    // If res.data is missing, it's likely an error.
+                    if (!res || !res.data) {
+                        const message = res ? res.message : 'Unknown error'
+                        if (message === 'auth key timeout' || (res && res.code === -101)) { // Guessing or covering general case if possible
+                            throw new Error('AUTH_TIMEOUT')
+                        }
+                        throw new Error(`API Error: ${message}`)
+                    }
+
+                    success = true
+                    break
+                } catch (e) {
+                    if (e.message === 'AUTH_TIMEOUT' || (res && res.code === -101)) {
+                        sendMsg(i18n.log.fetch.authTimeout)
+                        throw e
+                    }
+
+                    retryCount++
+                    if (retryCount >= 5) {
+                        sendMsg(i18n.parse(i18n.log.fetch.retryFailed, { name, page }))
+                        hasMore = false // Stop fetching this pool
+                        break
+                    }
+
+                    sendMsg(i18n.parse(i18n.log.fetch.retry, { name, page, count: retryCount }))
+                    await sleep(5)
+                }
+            }
+
+            if (!success) break
+
             const list = res.data.list
+            // If success but list is empty, handle normally?
+
+            // Add slight delay to be safe (original logic had 500ms)
+            if (!(page % 10 === 0)) {
+                await sleep(0.5)
+            }
 
             if (list && list.length > 0) {
                 const adaptedList = list.map(item => adaptUserLog(item, poolType))
@@ -139,6 +197,7 @@ const getAllRecord = async ({ token, lang, serverId }) => {
                 lastSeqId = list[list.length - 1].seqId
             }
             hasMore = res.data.hasMore
+            page++
         }
 
         if (currentPoolRecords.length > 0) {
