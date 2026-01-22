@@ -76,15 +76,17 @@ const parseText = (text, data) => {
 }
 
 const mainProps = [
-  'symbol', 'ui', 'log', 'excel',"uigf"
+  'symbol', 'ui', 'log', 'excel', 'uigf', 'gacha'
 ]
 
 const i18n = new Proxy(raw, {
-  get (obj, prop) {
+  get(obj, prop) {
     if (prop === 'data') {
       return i18nMap.get(config.lang)
     } else if (mainProps.includes(prop)) {
-      return i18nMap.get(config.lang)[prop]
+      const current = i18nMap.get(config.lang)[prop]
+      if (current) return current
+      return i18nMap.get('en-us')[prop]
     } else if (prop === 'parse') {
       return parseText
     }

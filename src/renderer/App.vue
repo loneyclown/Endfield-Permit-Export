@@ -91,7 +91,7 @@ import GachaDetail from './components/GachaDetail.vue'
 import Setting from './components/Setting.vue'
 import gachaDetail from './gachaDetail'
 import { version } from '../../package.json'
-import gachaType from '../gachaType.json'
+// import gachaType from '../gachaType.json'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 const state = reactive({
@@ -192,12 +192,11 @@ const detail = computed(() => {
 })
 
 const typeMap = computed(() => {
-  const gachaTypeMap = new Map(gachaType)
-  const type = gachaTypeMap.get(state.config.lang)
   const result = new Map()
-  if (type) {
-    for (let { key, name } of type) {
-      result.set(key, name)
+  if (state.i18n && state.i18n.gacha && state.i18n.gacha.type) {
+    const types = state.i18n.gacha.type
+    for (const key in types) {
+      result.set(key, types[key])
     }
   }
   return result

@@ -5,7 +5,7 @@ const { sendMsg, readJSON, saveJSON, detectLocale, userDataPath, localIp, langMa
 const config = require('./config')
 const i18n = require('./i18n')
 const { mergeData } = require('./utils/mergeData')
-const gachaTypeRaw = require('../gachaType.json')
+// const gachaTypeRaw = require('../gachaType.json') // Removed or unused
 const fetch = require('electron-fetch').default
 
 const dataMap = new Map()
@@ -112,10 +112,9 @@ const getAllRecord = async ({ token, lang, serverId }) => {
     const allRecords = []
     const typeMap = new Map()
     // Populate typeMap for UI
-    typeMap.set('1', 'Standard Search')
-    typeMap.set('11', 'Event Search')
-    typeMap.set('2', 'Beginner Search')
-
+    typeMap.set('1', i18n.parse(i18n.gacha.type['1']))
+    typeMap.set('11', i18n.parse(i18n.gacha.type['11']))
+    typeMap.set('2', i18n.parse(i18n.gacha.type['2']))
     const result = new Map()
 
     sendMsg(i18n.parse(i18n.log.fetch.gachaType))
