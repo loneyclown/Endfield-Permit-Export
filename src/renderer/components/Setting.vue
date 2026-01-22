@@ -11,14 +11,14 @@
         </el-select>
         <p class="text-gray-400 text-xs m-1.5">{{text.languageHint}}</p>
       </el-form-item>
-      <el-form-item :label="text.logType">
+      <!-- <el-form-item :label="text.logType">
         <el-radio-group @change="saveSetting" v-model.number="settingForm.logType">
           <el-radio-button :label="0">{{text.auto}}</el-radio-button>
           <el-radio-button :label="1">{{text.cnServer}}</el-radio-button>
           <el-radio-button :label="2">{{text.seaServer}}</el-radio-button>
         </el-radio-group>
         <p class="text-gray-400 text-xs m-1.5">{{text.logTypeHint}}</p>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="common.data">
         <el-button type="primary" plain @click="state.showDataDialog = true">{{common.dataManage}}</el-button>
         <p class="text-gray-400 text-xs m-1.5">{{text.dataManagerHint}}</p>
@@ -29,7 +29,7 @@
           v-model="settingForm.autoUpdate">
         </el-switch>
       </el-form-item>
-      <el-form-item :label="text.hideNovice">
+      <!-- <el-form-item :label="text.hideNovice">
         <el-switch
           @change="saveSetting"
           v-model="settingForm.hideNovice">
@@ -41,7 +41,7 @@
           v-model="settingForm.fetchFullHistory">
         </el-switch>
         <p class="text-gray-400 text-xs m-1.5">{{text.fetchFullHistoryHint}}</p>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item :label="text.proxyMode">
         <el-switch
           @change="saveSetting"
@@ -139,7 +139,7 @@ const disableProxy = async () => {
   await ipcRenderer.invoke('DISABLE_PROXY')
 }
 
-const openGithub = () => shell.openExternal('https://github.com/biuuu/star-rail-warp-export')
+const openGithub = () => shell.openExternal('https://github.com/AiverAiva/Endfield-Permit-Export')
 const openUIGF = () => shell.openExternal('https://uigf.org/')
 const openLink = (link) => shell.openExternal(link)
 
