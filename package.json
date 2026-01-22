@@ -1,6 +1,6 @@
   {
     "name": "endfield-permit-export",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "./dist/electron/main/main.js",
     "author": "AiverAiva <https://github.com/AiverAiva>",
     "homepage": "https://github.com/AiverAiva/Endfield-Permit-Export",
