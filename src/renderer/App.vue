@@ -199,6 +199,18 @@ const typeMap = computed(() => {
       result.set(key, types[key])
     }
   }
+  const currentData = state.dataMap.get(state.current)
+  if (currentData && currentData.typeMap) {
+      if (typeof currentData.typeMap[Symbol.iterator] === 'function') {
+        for (const [key, val] of currentData.typeMap) {
+            result.set(key, val)
+        }
+      } else if (typeof currentData.typeMap === 'object') {
+        for (const key in currentData.typeMap) {
+            result.set(key, currentData.typeMap[key])
+        }
+      }
+  }
   return result
 })
 

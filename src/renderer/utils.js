@@ -1,7 +1,7 @@
 import * as IconComponents from '@element-plus/icons-vue'
 
 const weaponTypeNames = new Set([
-  '光锥', '光錐', 'Lichtkegel', 'Light Cone', 'Conos de luz', 'cônes de lumière', '光円錐', '광추', 'Cones de Luz', 'Световые конусы', 'Nón Ánh Sáng', 'Cône de lumière'
+  '光锥', '光錐', 'Lichtkegel', 'Light Cone', 'Conos de luz', 'cônes de lumière', '光円錐', '광추', 'Cones de Luz', 'Световые конусы', 'Nón Ánh Sáng', 'Cône de lumière', 'Weapon'
 ])
 
 const characterTypeNames = new Set([

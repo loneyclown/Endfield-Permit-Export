@@ -13,7 +13,11 @@ const order = ['11', '12', '21', '22', '1', '2']
 const gachaDetail = (data) => {
   if (!data) return
   const detailMap = new Map()
-  for (let key of order) {
+  const keys = [...data.keys()]
+  // Optional: sort keys if needed, e.g. standard pools first
+  // keys.sort(...) 
+
+  for (let key of keys) {
     if (!data.has(key)) continue
     let value = data.get(key)
     let detail = {
