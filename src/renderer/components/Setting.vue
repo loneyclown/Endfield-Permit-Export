@@ -55,7 +55,7 @@
     <h3 class="text-lg my-4">{{about.title}}</h3>
     <p class="text-gray-600 text-xs mt-1">{{text.idVersion}} {{idJson.version}}</p>
     <p class="text-gray-600 text-xs mt-1">{{about.license}}</p>
-    <p class="text-gray-600 text-xs mt-1">Github: <a @click="openGithub" class="cursor-pointer text-blue-400">https://github.com/biuuu/star-rail-warp-export</a></p>
+    <p class="text-gray-600 text-xs mt-1">Github: <a @click="openGithub" class="cursor-pointer text-blue-400">https://github.com/AiverAiva/Endfield-Permit-Export</a></p>
     <p class="text-gray-600 text-xs mt-1 pb-6">UIGF: <a @click="openUIGF" class="cursor-pointer text-blue-400">https://uigf.org/</a></p>
     <el-dialog v-model="state.showDataDialog" :title="common.dataManage" width="90%">
       <div class="">
