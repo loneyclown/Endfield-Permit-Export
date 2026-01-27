@@ -1,9 +1,27 @@
-# 明日方舟：終末地抽卡導出工具
+中文 | [English](https://github.com/AiverAiva/Endfield-Permit-Export/blob/main/docs/README_EN.md)
+
+<div align="center">
+  <h1>Endfield Permit Export</h1>
+
+  <p>
+    一個《明日方舟：終末地》的抽卡記錄分析工具
+  </p>
+
+  <p>
+    <a href="https://github.com/AiverAiva/Endfield-Permit-Export/releases">
+      <img src="https://img.shields.io/github/v/release/AiverAiva/Endfield-Permit-Export?style=flat-square" />
+    </a>
+    <img src="https://img.shields.io/github/license/AiverAiva/Endfield-Permit-Export?style=flat-square" />
+    <a href="https://github.com/AiverAiva/Endfield-Permit-Export/releases">
+      <img src="https://img.shields.io/github/downloads/AiverAiva/Endfield-Permit-Export/total?style=flat-square" />
+    </a>
+    <img src="https://img.shields.io/github/last-commit/AiverAiva/Endfield-Permit-Export/main?style=flat-square" />
+  </p>
+</div>
 
 ## 本工具基本上只改了功能性的部分 很多文本跟功能性部分還沒完整和終末地相容
 ## 歡迎提出pull request更新內容或修改問題
 
-中文 | [English](https://github.com/AiverAiva/Endfield-Permit-Export/blob/main/docs/README_EN.md)
 
 这个项目由[star-rail-warp-export](https://github.com/biuuu/star-rail-warp-export/)修改而来，用于明日方舟：終末地。
 

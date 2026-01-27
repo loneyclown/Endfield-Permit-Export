@@ -1,6 +1,24 @@
-# Star Rail Warp History Exporter
 
 [中文](https://github.com/biuuu/star-rail-warp-export/blob/main/README.md) | English
+
+<div align="center">
+  <h1>Endfield Permit Export</h1>
+
+  <p>
+    A pull history analyzing tool for《Arknights：Endfield》
+  </p>
+
+  <p>
+    <a href="https://github.com/AiverAiva/Endfield-Permit-Export/releases">
+      <img src="https://img.shields.io/github/v/release/AiverAiva/Endfield-Permit-Export?style=flat-square" />
+    </a>
+    <img src="https://img.shields.io/github/license/AiverAiva/Endfield-Permit-Export?style=flat-square" />
+    <a href="https://github.com/AiverAiva/Endfield-Permit-Export/releases">
+      <img src="https://img.shields.io/github/downloads/AiverAiva/Endfield-Permit-Export/total?style=flat-square" />
+    </a>
+    <img src="https://img.shields.io/github/last-commit/AiverAiva/Endfield-Permit-Export/main?style=flat-square" />
+  </p>
+</div>
 
 This project is modified from the [genshin-wish-export](https://github.com/biuuu/genshin-wish-export/) repository, and its functions are basically the same.
 
