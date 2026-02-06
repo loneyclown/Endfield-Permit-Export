@@ -26,50 +26,42 @@ const extractEfWebview = async () => {
         path.join(homeDir, "AppData", "LocalLow", "Hypergryph", "Endfield", "sdklogs", "HGWebview.log")
     ]
 
-    let content = null
+    const allInfos = []
+
     for (const logPath of logPaths) {
         try {
             if (await fs.pathExists(logPath)) {
-                content = await fs.readFile(logPath, "utf-8")
-                break
+                const content = await fs.readFile(logPath, "utf-8")
+                const regex = /https:\/\/ef-webview\.(gryphline|hypergryph)\.com[^\s"'<>]*[&\?](u8_token|token)=[^&\s"'<>]+[^\s"'<>]*/g
+                const matches = content.match(regex)
+
+                if (matches && matches.length > 0) {
+                    const latestUrl = matches[matches.length - 1]
+                    const parsed = new URL(latestUrl)
+                    const token = parsed.searchParams.get("u8_token") || parsed.searchParams.get("token")
+                    const lang = parsed.searchParams.get("lang")
+                    const serverRaw = parsed.searchParams.get("server") || parsed.searchParams.get("server_id")
+
+                    if (token && lang && serverRaw) {
+                        allInfos.push({
+                            token,
+                            lang,
+                            serverId: serverRaw,
+                            host: parsed.host,
+                            apiDomain: `${parsed.protocol}//${parsed.host}`
+                        })
+                    }
+                }
             }
         } catch (e) { }
     }
 
-    if (!content) {
-        sendMsg('Log file not found or unreadable.')
+    if (allInfos.length === 0) {
+        sendMsg('No valid log files or URLs found.')
         return false
     }
 
-    try {
-        const regex = /https:\/\/ef-webview\.(gryphline|hypergryph)\.com[^\s"'<>]*[&\?](u8_token|token)=[^&\s"'<>]+[^\s"'<>]*/g
-        const matches = content.match(regex)
-
-        if (!matches || matches.length === 0) {
-            sendMsg('Log file found but no URL matches.')
-            return false
-        }
-
-        const latestUrl = matches[matches.length - 1]
-        const parsed = new URL(latestUrl)
-
-        // Update apiDomain for subsequent fetches
-        apiDomain = `${parsed.protocol}//${parsed.host}`
-
-        const token = parsed.searchParams.get("u8_token") || parsed.searchParams.get("token")
-        const lang = parsed.searchParams.get("lang")
-        const serverRaw = parsed.searchParams.get("server") || parsed.searchParams.get("server_id")
-
-        if (!token || !lang || !serverRaw) {
-            sendMsg('URL found but content missing.')
-            return false
-        }
-
-        return { token, lang, serverId: serverRaw, host: parsed.host }
-    } catch (e) {
-        sendMsg('Error parsing log content.')
-        return false
-    }
+    return allInfos
 }
 
 const POOL_TYPES = [
@@ -370,30 +362,34 @@ const getAllRecord = async ({ token, lang, serverId }) => {
 const fetchData = async () => {
     await readData() // Load existing local data
 
-    const info = await extractEfWebview()
-    if (!info) return
+    const allInfos = await extractEfWebview()
+    if (!allInfos) return
 
-    const { token, lang, serverId, host } = info
+    for (const info of allInfos) {
+        const { token, lang, serverId, host, apiDomain: currentApiDomain } = info
 
-    // We need a UID. The API doesn't seem to return it in the record list? 
-    // Assuming single account for now or we might need another API call.
-    // Using a placeholder UID based on serverId if not available.
-    // Keep standard Global UID format as EF_serverId, only prefix CN server
-    let uid = `EF_${serverId}`
-    if (host.includes('hypergryph')) {
-        uid = `EF_CN_${serverId}`
+        // Update global apiDomain for this fetch iteration
+        apiDomain = currentApiDomain
+
+        // Keep standard Global UID format as EF_serverId, only prefix CN server
+        let uid = `EF_${serverId}`
+        if (host.includes('hypergryph')) {
+            uid = `EF_CN_${serverId}`
+        }
+
+        sendMsg(`Processing account: ${uid}`)
+
+        const data = await getAllRecord({ token, lang, serverId })
+        data.uid = uid
+
+        const localData = dataMap.get(uid)
+        const mergedResult = mergeData(localData, data)
+        data.result = mergedResult
+
+        dataMap.set(uid, data)
+        await changeCurrent(uid)
+        await saveData(data)
     }
-
-    const data = await getAllRecord({ token, lang, serverId })
-    data.uid = uid
-
-    const localData = dataMap.get(uid)
-    const mergedResult = mergeData(localData, data)
-    data.result = mergedResult
-
-    dataMap.set(uid, data)
-    await changeCurrent(uid)
-    await saveData(data)
 }
 
 const readData = async () => {
