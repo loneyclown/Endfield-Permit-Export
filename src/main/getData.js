@@ -21,19 +21,28 @@ const saveData = async (data) => {
 
 const extractEfWebview = async () => {
     const homeDir = app.getPath('home')
-    const logPath = path.join(
-        homeDir,
-        "AppData",
-        "LocalLow",
-        "Gryphline",
-        "Endfield",
-        "sdklogs",
-        "HGWebview.log"
-    )
+    const logPaths = [
+        path.join(homeDir, "AppData", "LocalLow", "Gryphline", "Endfield", "sdklogs", "HGWebview.log"),
+        path.join(homeDir, "AppData", "LocalLow", "Hypergryph", "Endfield", "sdklogs", "HGWebview.log")
+    ]
+
+    let content = null
+    for (const logPath of logPaths) {
+        try {
+            if (await fs.pathExists(logPath)) {
+                content = await fs.readFile(logPath, "utf-8")
+                break
+            }
+        } catch (e) { }
+    }
+
+    if (!content) {
+        sendMsg('Log file not found or unreadable.')
+        return false
+    }
 
     try {
-        const content = await fs.readFile(logPath, "utf-8")
-        const regex = /https:\/\/ef-webview\.gryphline\.com[^\s"'<>]*u8_token=[^&\s"'<>]+[^\s"'<>]*/g
+        const regex = /https:\/\/ef-webview\.(gryphline|hypergryph)\.com[^\s"'<>]*[&\?](u8_token|token)=[^&\s"'<>]+[^\s"'<>]*/g
         const matches = content.match(regex)
 
         if (!matches || matches.length === 0) {
@@ -44,18 +53,21 @@ const extractEfWebview = async () => {
         const latestUrl = matches[matches.length - 1]
         const parsed = new URL(latestUrl)
 
-        const token = parsed.searchParams.get("u8_token")
+        // Update apiDomain for subsequent fetches
+        apiDomain = `${parsed.protocol}//${parsed.host}`
+
+        const token = parsed.searchParams.get("u8_token") || parsed.searchParams.get("token")
         const lang = parsed.searchParams.get("lang")
-        const serverRaw = parsed.searchParams.get("server")
+        const serverRaw = parsed.searchParams.get("server") || parsed.searchParams.get("server_id")
 
         if (!token || !lang || !serverRaw) {
             sendMsg('URL found but content missing.')
             return false
         }
 
-        return { token, lang, serverId: serverRaw }
+        return { token, lang, serverId: serverRaw, host: parsed.host }
     } catch (e) {
-        sendMsg('Log file not found or unreadable.')
+        sendMsg('Error parsing log content.')
         return false
     }
 }
@@ -361,12 +373,16 @@ const fetchData = async () => {
     const info = await extractEfWebview()
     if (!info) return
 
-    const { token, lang, serverId } = info
+    const { token, lang, serverId, host } = info
 
     // We need a UID. The API doesn't seem to return it in the record list? 
     // Assuming single account for now or we might need another API call.
     // Using a placeholder UID based on serverId if not available.
-    const uid = `EF_${serverId}`
+    // Keep standard Global UID format as EF_serverId, only prefix CN server
+    let uid = `EF_${serverId}`
+    if (host.includes('hypergryph')) {
+        uid = `EF_CN_${serverId}`
+    }
 
     const data = await getAllRecord({ token, lang, serverId })
     data.uid = uid
