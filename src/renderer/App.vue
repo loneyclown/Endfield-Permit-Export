@@ -193,12 +193,6 @@ const detail = computed(() => {
 
 const typeMap = computed(() => {
   const result = new Map()
-  if (state.i18n && state.i18n.gacha && state.i18n.gacha.type) {
-    const types = state.i18n.gacha.type
-    for (const key in types) {
-      result.set(key, types[key])
-    }
-  }
   const currentData = state.dataMap.get(state.current)
   if (currentData && currentData.typeMap) {
       if (typeof currentData.typeMap[Symbol.iterator] === 'function') {
@@ -210,6 +204,12 @@ const typeMap = computed(() => {
             result.set(key, currentData.typeMap[key])
         }
       }
+  }
+  if (state.i18n && state.i18n.gacha && state.i18n.gacha.type) {
+    const types = state.i18n.gacha.type
+    for (const key in types) {
+      result.set(key, types[key])
+    }
   }
   return result
 })
