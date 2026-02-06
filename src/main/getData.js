@@ -21,10 +21,16 @@ const saveData = async (data) => {
 
 const extractEfWebview = async () => {
     const homeDir = app.getPath('home')
-    const logPaths = [
+    let logPaths = [
         path.join(homeDir, "AppData", "LocalLow", "Gryphline", "Endfield", "sdklogs", "HGWebview.log"),
         path.join(homeDir, "AppData", "LocalLow", "Hypergryph", "Endfield", "sdklogs", "HGWebview.log")
     ]
+
+    if (config.logType === 1) {
+        logPaths = [path.join(homeDir, "AppData", "LocalLow", "Hypergryph", "Endfield", "sdklogs", "HGWebview.log")]
+    } else if (config.logType === 2) {
+        logPaths = [path.join(homeDir, "AppData", "LocalLow", "Gryphline", "Endfield", "sdklogs", "HGWebview.log")]
+    }
 
     const allInfos = []
 
