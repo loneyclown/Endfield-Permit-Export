@@ -468,5 +468,30 @@ ipcMain.handle('GET_CONFIG', () => config.value())
 ipcMain.handle('SAVE_CONFIG', (event, [key, value]) => { config[key] = value; config.save() })
 ipcMain.handle('OPEN_CACHE_FOLDER', () => { shell.openPath(userDataPath) })
 
+// Delete or restore data
+const deleteData = async (uid, action) => {
+    const data = dataMap.get(uid)
+    if (!data) return
+    
+    if (action === 'delete') {
+        data.deleted = true
+    } else if (action === 'restore') {
+        delete data.deleted
+    }
+    
+    await saveData(data)
+}
+
+// Get the latest URL from game logs
+const getUrl = async () => {
+    const allInfos = await extractEfWebview()
+    if (!allInfos || allInfos.length === 0) return null
+    
+    const info = allInfos[0]
+    return `${info.apiDomain}/api/record/char?token=${info.token}&lang=${info.lang}&server_id=${info.serverId}`
+}
+
 // Exports
 exports.getData = () => ({ dataMap, current: config.current })
+exports.deleteData = deleteData
+exports.getUrl = getUrl

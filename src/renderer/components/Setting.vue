@@ -75,8 +75,8 @@
           <el-table-column property="deleted" :label="common.action" width="128">
             <template #default="scope">
               <el-tooltip :content="scope.row.deleted ? common.restore : common.delete" placement="top">
-                <el-button :loading="state.dataActionLoading" size="small" icon="refresh" plain type="success" @click="deleteData(scope.row.uid, false)" v-if="scope.row.deleted"></el-button>
-                <el-button :loading="state.dataActionLoading" size="small" icon="delete" plain type="danger" @click="deleteData(scope.row.uid, true)" v-else></el-button>
+                <el-button :loading="state.dataActionLoading" size="small" icon="refresh" plain type="success" @click="deleteData(scope.row.uid, 'restore')" v-if="scope.row.deleted"></el-button>
+                <el-button :loading="state.dataActionLoading" size="small" icon="delete" plain type="danger" @click="deleteData(scope.row.uid, 'delete')" v-else></el-button>
               </el-tooltip>
             </template>
           </el-table-column>
