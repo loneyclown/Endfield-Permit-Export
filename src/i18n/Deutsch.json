@@ -80,5 +80,6 @@
   "srgf.fileType": "Endfield Gacha Log Format Datei",
   "gacha.type.1": "Rekrutierung: Standard",
   "gacha.type.11": "Rekrutierung: Priorisiert",
-  "gacha.type.2": "Rekrutierung: Neue Horizonte"
+  "gacha.type.2": "Rekrutierung: Neue Horizonte",
+  "gacha.type.300": "Dringende Rekrutierung"
 }

@@ -71,5 +71,6 @@
   "excel.fileType": "Excel file",
   "gacha.type.1": "Специальный наем",
   "gacha.type.11": "Стандартный наем",
-  "gacha.type.2": "Наем «Новые горизонты»"
+  "gacha.type.2": "Наем «Новые горизонты»",
+  "gacha.type.300": "Срочный набор"
 }

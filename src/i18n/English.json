@@ -105,5 +105,6 @@
   "ui.uigf.title": "Please select the UID(s) you want to export",
   "gacha.type.1": "Basic Headhunting",
   "gacha.type.11": "Chartered Headhunting",
-  "gacha.type.2": "New Horizon Headhunting"
+  "gacha.type.2": "New Horizon Headhunting",
+  "gacha.type.300": "Urgent Recruitment"
 }

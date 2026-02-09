@@ -93,6 +93,7 @@ const adaptUserLog = (userLog, poolType) => {
     const seconds = String(date.getSeconds()).padStart(2, '0');
     const timeStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
+    const gacha_type = userLog.isFree ? '300' : (poolIdMap[poolType] || '1')
     return {
         id: userLog.seqId,
         item_id: userLog.charId,
@@ -101,7 +102,7 @@ const adaptUserLog = (userLog, poolType) => {
         rank_type: userLog.rarity.toString(),
         time: timeStr,
         gacha_id: userLog.poolId,
-        gacha_type: poolIdMap[poolType] || '1',
+        gacha_type,
         count: "1"
     }
 }
@@ -173,6 +174,7 @@ const getAllRecord = async ({ token, lang, serverId }) => {
     typeMap.set('1', i18n.parse(i18n.gacha.type['1']))
     typeMap.set('11', i18n.parse(i18n.gacha.type['11']))
     typeMap.set('2', i18n.parse(i18n.gacha.type['2']))
+    typeMap.set('300', i18n.parse(i18n.gacha.type['300']))
     const result = new Map()
 
     sendMsg(i18n.parse(i18n.log.fetch.gachaType))
@@ -260,7 +262,27 @@ const getAllRecord = async ({ token, lang, serverId }) => {
         if (currentPoolRecords.length > 0) {
             // Sort by id ascending (oldest first) for UI pity calculation
             currentPoolRecords.sort((a, b) => Number(a.id) - Number(b.id))
-            result.set(mappedKey, currentPoolRecords)
+            
+            // Separate Urgent Recruitment
+            const normalRecords = []
+            const urgentRecords = []
+            
+            for (const record of currentPoolRecords) {
+                if (record.gacha_type === '300') {
+                    urgentRecords.push(record)
+                } else {
+                    normalRecords.push(record)
+                }
+            }
+
+            if (normalRecords.length > 0) {
+                const existing = result.get(mappedKey) || []
+                result.set(mappedKey, existing.concat(normalRecords))
+            }
+            if (urgentRecords.length > 0) {
+                 const existing = result.get('300') || []
+                 result.set('300', existing.concat(urgentRecords))
+            }
         }
     }
 

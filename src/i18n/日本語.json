@@ -105,5 +105,6 @@
   "ui.uigf.title": "エクスポートするUIDを選択してください",
   "gacha.type.1": "通常スカウト",
   "gacha.type.11": "特別スカウト",
-  "gacha.type.2": "旅立ちスカウト"
+  "gacha.type.2": "旅立ちスカウト",
+  "gacha.type.300": "緊急募集"
 }

@@ -102,5 +102,6 @@
   "ui.extra.urlCopied": "URL copiée",
   "gacha.type.1": "Recrutement de base",
   "gacha.type.11": "Recrutement certifié",
-  "gacha.type.2": "Recrutement Nouveaux horizons"
+  "gacha.type.2": "Recrutement Nouveaux horizons",
+  "gacha.type.300": "Recrutement Urgent"
 }

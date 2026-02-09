@@ -105,5 +105,6 @@
   "ui.uigf.title": "请选择要导出的UID",
   "gacha.type.1": "常驻寻访",
   "gacha.type.11": "活动寻访",
-  "gacha.type.2": "新手寻访"
+  "gacha.type.2": "新手寻访",
+  "gacha.type.300": "加急招募"
 }
