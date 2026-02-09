@@ -70,7 +70,7 @@
   "ui.common.deleted": "Deleted",
   "ui.common.normal": "Normal",
   "ui.common.delete": "Delete",
-  "ui.common.restorew": "Restore",
+  "ui.common.restore": "Restore",
   "log.save.failed": "Failed to save local data",
   "log.file.notFound": "Unable to find game logs, please make sure you already opened headhunting history inside the game client",
   "log.url.notFound": "Unable to find URL",
