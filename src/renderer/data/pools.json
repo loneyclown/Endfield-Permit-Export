@@ -1,36 +1,44 @@
 [
   {
-    "id": "1",
-    "name": "常驻寻访",
-    "type": "1",
+    "poolId": "standard",
+    "poolName": "基础寻访",
+    "type": "E_CharacterGachaPoolType_Standard",
     "startTime": "2023-01-01 00:00:00",
     "endTime": "2099-12-31 23:59:59"
   },
   {
-    "id": "1001",
-    "name": "熔火灼痕",
-    "type": "11",
+    "poolId": "beginner",
+    "poolName": "启程寻访",
+    "type": "E_CharacterGachaPoolType_Beginner",
+    "startTime": "2023-01-01 00:00:00",
+    "endTime": "2099-12-31 23:59:59"
+  },
+  {
+    "poolId": "special_1_0_1",
+    "poolName": "熔火灼痕",
+    "type": "E_CharacterGachaPoolType_Special",
     "startTime": "2026-01-22 00:00:00",
     "endTime": "2026-02-07 11:59:59",
-    "up6": ["莱万汀"],
-    "_up6": ["洁尔佩塔", "伊冯"]
+    "up6": [
+      "莱万汀"
+    ],
+    "_up6": [
+      "洁尔佩塔",
+      "伊冯"
+    ]
   },
   {
-    "id": "1002",
-    "name": "轻飘飘的信使",
-    "type": "11",
+    "poolId": "special_1_0_3",
+    "poolName": "轻飘飘的信使",
+    "type": "E_CharacterGachaPoolType_Special",
     "startTime": "2026-02-07 12:00:00",
     "endTime": "2026-02-24 11:59:59",
-    "up6": ["洁尔佩塔"],
-    "_up6": ["莱万汀", "伊冯"]
-  },
-  {
-    "id": "1003",
-    "name": "热烈色彩",
-    "type": "11",
-    "startTime": "2026-02-24 12:00:00",
-    "endTime": "2026-03-14 11:59:59",
-    "up6": ["伊冯"],
-    "_up6": ["莱万汀", "洁尔佩塔"]
+    "up6": [
+      "洁尔佩塔"
+    ],
+    "_up6": [
+      "莱万汀",
+      "伊冯"
+    ]
   }
 ]
