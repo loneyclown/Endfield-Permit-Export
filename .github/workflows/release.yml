@@ -3,6 +3,7 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
       - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
+  workflow_dispatch:
 
 name: Upload Release Asset
 
@@ -10,16 +11,19 @@ jobs:
   build:
     name: Upload Release Asset
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: "18.x"
+          cache: "yarn"
       - name: Build App
         run: |
-          yarn --frozen-lockfile
+          yarn install --frozen-lockfile
           yarn build:win64
           yarn build-update
       - name: Create Release
